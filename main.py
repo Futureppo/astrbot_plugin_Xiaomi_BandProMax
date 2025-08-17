@@ -10,7 +10,7 @@ from astrbot.api import logger, llm_tool, AstrBotConfig
     "Futureppo",
     "提供一个tool用于控制跳蛋",
     "1.0.0",
-    "https://github.com/Futureppo/astrbot_plugin_group_loveegg",
+    "https://github.com/Futureppo/astrbot_plugin_loveegg",
 )
 class LoveEggPlugin(Star):
     def __init__(self, context: Context, config: AstrBotConfig = None):
