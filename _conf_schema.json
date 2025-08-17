@@ -1,0 +1,20 @@
+{
+  "device_url": {
+    "description": "跳蛋设备控制地址",
+    "type": "string",
+    "hint": "跳蛋设备的HTTP控制接口地址，格式为 http://ip:port，例如: http://192.168.1.100:8080",
+    "default": "http://127.0.0.1:8080"
+  },
+  "display_message": {
+    "description": "远端显示消息内容",
+    "type": "string",
+    "hint": "发送到跳蛋设备时在远端显示的消息内容，例如: '震动控制'、'来自AstrBot的控制'等",
+    "default": "AstrBot控制"
+  },
+  "request_timeout": {
+    "description": "请求超时时间（秒）",
+    "type": "int",
+    "hint": "向跳蛋设备发送HTTP请求的超时时间，单位为秒",
+    "default": 10
+  }
+} 
