@@ -29,6 +29,7 @@
 
 ## 使用方法
 
+需要下载app，下载链接 https://www.123865.com/s/FjgBjv-LFSj3
 ### 1. 设备接口要求
 
 米家跳蛋设备需要提供 HTTP GET 接口，格式为：
