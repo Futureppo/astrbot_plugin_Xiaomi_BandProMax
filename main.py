@@ -6,9 +6,9 @@ from astrbot.api import logger, llm_tool, AstrBotConfig
 
 
 @register(
-    "astrbot_plugin_loveegg",
+    "astrbot_plugin_Xiaomi_BandProMax",
     "Futureppo",
-    "提供一个tool用于控制跳蛋",
+    "提供一个tool用于控制手环震动",
     "1.0.0",
     "https://github.com/Futureppo/astrbot_plugin_loveegg",
 )
