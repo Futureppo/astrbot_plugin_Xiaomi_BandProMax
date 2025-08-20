@@ -1,6 +1,6 @@
-name: astrbot_plugin_loveegg # 这是你的插件的唯一识别名。
-desc: 提供一个tool用于控制跳蛋 # 插件简短描述
-help: 提供一个tool用于控制跳蛋 # 插件的帮助信息
-version: v1.0.0 # 插件版本号。格式：v1.1.1 或者 v1.1
-author: Futureppo  # 作者
-repo: https://github.com/Futureppo/astrbot_plugin_loveegg # 插件的仓库地址
+name: astrbot_plugin_Xiaomi_BandProMax
+desc: 提供一个tool用于控制小米手环震动
+help: 提供一个tool用于控制小米手环震动
+version: v1.0.0
+author: Futureppo
+repo: https://github.com/Futureppo/astrbot_plugin_Xiaomi_BandProMax
