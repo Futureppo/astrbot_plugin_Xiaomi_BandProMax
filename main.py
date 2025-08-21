@@ -43,17 +43,12 @@ class LoveEggPlugin(Star):
             
             logger.info(f"发送跳蛋控制指令: {url}")
             
-            # 使用异步HTTP客户端发送请求
             timeout = aiohttp.ClientTimeout(total=self.request_timeout)
             async with aiohttp.ClientSession() as session:
                 async with session.get(url, timeout=timeout) as response:
                     if response.status == 200:
                         response_text = await response.text()
                         logger.info(f"跳蛋控制成功，响应: {response_text}")
-                        
-                        # 固定等待0.5秒震动时间
-                        await asyncio.sleep(self.vibration_duration)
-                        
                         return f"✅ 跳蛋控制成功！震动 {self.vibration_duration} 秒，强度: {intensity}，设备响应: {response_text}"
                     else:
                         error_msg = f"跳蛋控制失败，HTTP状态码: {response.status}"
