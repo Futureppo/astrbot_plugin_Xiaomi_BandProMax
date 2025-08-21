@@ -1,6 +1,6 @@
 name: astrbot_plugin_Xiaomi_BandProMax
-desc: 提供一个tool用于控制小米手环震动
-help: 提供一个tool用于控制小米手环震动
+desc: 小米手环新用法
+help: 小米手环新用法
 version: v1.0.0
 author: Futureppo
 repo: https://github.com/Futureppo/astrbot_plugin_Xiaomi_BandProMax
