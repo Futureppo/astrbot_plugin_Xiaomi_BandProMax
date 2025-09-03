@@ -6,9 +6,9 @@
     "default": "http://127.0.0.1:8080"
   },
   "display_message": {
-    "description": "远端显示消息内容",
+    "description": "远端显示消息内容（将作为 text 参数）",
     "type": "string",
-    "hint": "发送到跳蛋设备时在远端显示的消息内容，例如: '震动控制'、'来自AstrBot的控制'等",
+    "hint": "发送到跳蛋设备时在远端显示的消息内容，例如: '来自AstrBot的控制'",
     "default": "AstrBot控制"
   },
   "request_timeout": {

@@ -1,5 +1,6 @@
-import asyncio
 import aiohttp
+import asyncio
+from urllib.parse import quote_plus
 from astrbot.api.event import AstrMessageEvent
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger, llm_tool, AstrBotConfig
@@ -8,66 +9,61 @@ from astrbot.api import logger, llm_tool, AstrBotConfig
 @register(
     "astrbot_plugin_Xiaomi_BandProMax",
     "Futureppo",
-    "提供一个tool用于控制手环震动",
-    "1.0.0",
+    "提供一个tool用于控制跳蛋",
+    "1.0.1",
     "https://github.com/Futureppo/astrbot_plugin_Xiaomi_BandProMax",
 )
-class LoveEggPlugin(Star):
+class Xiaomi_BandProMaxPlugin(Star):
     def __init__(self, context: Context, config: AstrBotConfig = None):
         super().__init__(context)
         self.config = config or {}
-        # 获取配置项，如果没有配置则使用默认值
-        self.device_url = self.config.get("device_url", "http://127.0.0.1:8080")
-        self.display_message = self.config.get("display_message", "AstrBot控制")
+        self.device_url = self.config.get("device_url", "http://192.168.1.5:8080")
+        self.display_message = self.config.get("display_message", "控制你")
         self.request_timeout = self.config.get("request_timeout", 10)
-        self.vibration_duration = 0.5
-        logger.info(f"跳蛋控制插件已加载，设备地址: {self.device_url}，显示消息: {self.display_message}")
 
     @llm_tool("loveegg_control")
-    async def control_loveegg(
-        self, 
-        event: AstrMessageEvent, 
-        intensity: str = "normal"
-    ) -> str:
-        """控制跳蛋设备震动。当用户需要控制跳蛋或让跳蛋震动时调用此工具。每次调用震动0.5秒，可以多次调用增加时长。
+    async def control_Xiaomi_BandProMax(self, event: AstrMessageEvent, s: int) -> str:
+        """控制跳蛋震动。
 
         Args:
-            intensity(string): 震动强度描述，如 "轻微"、"正常"、"强烈" 等，用于在远端显示不同的控制信息
+            s(number): 震动时间（秒），必须为大于 0 的自然数
         """
+
         try:
-            # 根据强度参数构建显示消息
-            display_text = f"{self.display_message} - {intensity}"
-            
-            # 构建完整的请求URL
-            url = f"{self.device_url}?text={display_text}"
-            
-            logger.info(f"发送跳蛋控制指令: {url}")
-            
-            timeout = aiohttp.ClientTimeout(total=self.request_timeout)
+            duration = int(s)
+        except Exception:
+            return "❌ 参数错误：s 必须为大于 0 的自然数"
+        if duration <= 0:
+            return "❌ 参数错误：s 必须为大于 0 的自然数"
+
+
+        base = self.device_url.rstrip("/")
+        text_encoded = quote_plus(str(self.display_message))
+        url = f"{base}/?text={text_encoded}&s={duration}"
+
+        logger.info(f"发送跳蛋控制指令: {url}")
+        try:
+            timeout_total = max(int(self.request_timeout), duration + 5)
+            timeout = aiohttp.ClientTimeout(total=timeout_total)
             async with aiohttp.ClientSession() as session:
                 async with session.get(url, timeout=timeout) as response:
+                    resp_text = await response.text()
                     if response.status == 200:
-                        response_text = await response.text()
-                        logger.info(f"跳蛋控制成功，响应: {response_text}")
-                        return f"✅ 跳蛋控制成功！震动 {self.vibration_duration} 秒，强度: {intensity}，设备响应: {response_text}"
+                        logger.info(f"跳蛋控制成功，响应: {resp_text}")
+                        return f"✅ 跳蛋控制成功！震动 {duration} 秒，响应: {resp_text}"
                     else:
-                        error_msg = f"跳蛋控制失败，HTTP状态码: {response.status}"
-                        logger.error(error_msg)
-                        return f"❌ {error_msg}"
-                        
-        except aiohttp.ClientTimeout:
-            error_msg = "跳蛋控制超时，请检查设备地址和网络连接"
-            logger.error(error_msg)
-            return f"❌ {error_msg}"
+                        err = f"跳蛋控制失败，HTTP状态码: {response.status}，响应: {resp_text}"
+                        logger.error(err)
+                        return f"❌ {err}"
+        except asyncio.TimeoutError:
+            err = "跳蛋控制超时，请检查跳蛋地址和网络连接，或缩短 s 的时间"
+            logger.error(err)
+            return f"❌ {err}"
         except aiohttp.ClientError as e:
-            error_msg = f"跳蛋控制网络错误: {str(e)}"
-            logger.error(error_msg)
-            return f"❌ {error_msg}"
+            err = f"跳蛋控制网络错误: {str(e)}"
+            logger.error(err)
+            return f"❌ {err}"
         except Exception as e:
-            error_msg = f"跳蛋控制发生未知错误: {str(e)}"
-            logger.error(error_msg)
-            return f"❌ {error_msg}"
-
-    async def terminate(self):
-        """插件卸载时调用"""
-        logger.info("跳蛋控制插件已卸载")
+            err = f"跳蛋控制发生未知错误: {str(e)}"
+            logger.error(err)
+            return f"❌ {err}" 
