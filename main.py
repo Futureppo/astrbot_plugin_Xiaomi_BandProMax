@@ -10,7 +10,7 @@ from astrbot.api import logger, llm_tool, AstrBotConfig
     "astrbot_plugin_Xiaomi_BandProMax",
     "Futureppo",
     "提供一个tool用于控制跳蛋",
-    "1.0.1",
+    "1.0.2",
     "https://github.com/Futureppo/astrbot_plugin_Xiaomi_BandProMax",
 )
 class Xiaomi_BandProMaxPlugin(Star):
@@ -35,7 +35,6 @@ class Xiaomi_BandProMaxPlugin(Star):
             return "❌ 参数错误：s 必须为大于 0 的自然数"
         if duration <= 0:
             return "❌ 参数错误：s 必须为大于 0 的自然数"
-
 
         base = self.device_url.rstrip("/")
         text_encoded = quote_plus(str(self.display_message))
