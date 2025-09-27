@@ -41,4 +41,4 @@
 
 ## 支持
 
-如有问题或建议，请在 [GitHub 仓库](https://github.com/Futureppo/astrbot_plugin_Xiaomi_BandProMax) 中提交 Issue。
+如有问题或建议，请在 [GitHub 仓库](https://github.com/Futureppo/astrbot_plugin_Xiaomi_BandProMax/issues) 中提交 Issue。
