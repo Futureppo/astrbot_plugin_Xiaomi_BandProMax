@@ -10,7 +10,7 @@ from astrbot.api import logger, llm_tool, AstrBotConfig
     "astrbot_plugin_Xiaomi_BandProMax",
     "Futureppo",
     "提供一个tool用于控制跳蛋",
-    "1.0.2",
+    "1.0.3",
     "https://github.com/Futureppo/astrbot_plugin_Xiaomi_BandProMax",
 )
 class Xiaomi_BandProMaxPlugin(Star):
